@@ -8,28 +8,35 @@ import codecs
 import numpy as np
 
 from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.util import ngrams
-from nltk import FreqDist, ConditionalFreqDist
-from scipy import stats
 from nltk.probability import ConditionalFreqDist
+from nltk.util import ngrams
+from nltk import FreqDist
+from scipy import stats
+
 
 class NgramModel:
     
-    def __init__(self, filepath, n):
+    def __init__(self, filepath, lang='french'):
         self.text = self._loadFile(filepath)
-        self.n = n
+        self.lang = lang
+        self.sentences = sent_tokenize(self.text, language='french')
+        self.starting_words = self._getStartingWords()
+    
+    def _loadFile(self, filepath):
+        with codecs.open(filepath, 'r', encoding='utf-8') as f:
+            return f.read().replace('\n', ' ')
     
     def _getStartingWords(self):
         """Extract the first words of the sentences in the text. They will become
         the entry point of the text generator.
         """
-        sentences = sent_tokenize(self.text, language='french')
-        return [word_tokenize(sentence, language='french')[0] for sentence in sentences]
+        return [word_tokenize(sentence, language='french')[0] for sentence in self.sentences]
     
-    def _selectFirstWord(self, first_words):
-        fdist = FreqDist(first_words)
+    def _selectFirstWord(self):
+        """
+        """
+        fdist = FreqDist(self.starting_words)
         x_k = np.arange(fdist.B())
-#         candidates = list({fw for fw in first_words})
         candidates = [word for word in fdist]
         p_k = [fdist.freq(word) for word in candidates]
         custm = stats.rv_discrete(values=(x_k, p_k))
@@ -39,8 +46,7 @@ class NgramModel:
         """
         """
         if len(ngram) == 0:
-            first_words = self._getStartingWords()
-            return self._selectFirstWord(first_words)
+            return self._selectFirstWord()
         
         xk = np.arange(cfdist[ngram].B())
         pk = []
@@ -52,35 +58,47 @@ class NgramModel:
         custm = stats.rv_discrete(values=(xk, pk))
         return candidates[custm.rvs()]
     
-    
-    def _loadFile(self, filepath):
-        with codecs.open(filepath, 'r', encoding='utf-8') as f:
-            return f.read().replace('\n', ' ')
-
-    def generateText(self):
+    def generateText(self, n, nb_sents=None, nb_words=None):
         """
         """
-        if self.n < 1:
-            return
+        if n < 1:
+            raise ValueError("n must be higher or equal than 1.")
+        if nb_sents is None and nb_words is None:
+            raise ValueError("nb_sents or nb_words must be set.")
         
-        words = word_tokenize(self.text, language='french')
+        # None is set as the end of a sentence
+        tok_sents = [word_tokenize(sentence, language='french')+[None] for sentence in self.sentences]
+        words = []
+        for tok_sent in tok_sents:
+            words += tok_sent
         # Extract [0-n]-grams
-        all_igrams = {i:ngrams(words, i) for i in range(1, self.n+1)}
+        all_igrams = {i:ngrams(words, i) for i in range(1, n+1)}
         # Compute conditional frequency distribution for each i-gram
         ngrams_cfd = {i:ConditionalFreqDist((igram[:-1], igram[-1]) for igram in igrams) for i, igrams in all_igrams.items()}
         
         i = 1
-        new_word = ''
         frame = ()
-        while new_word != '.':
+        gen_tokens = []
+        nb_sents_gen = 0
+        nb_gen_words = 0
+        while True:
             new_word = self._selectNextWord(frame, ngrams_cfd[i])
+            if new_word is None:
+                nb_sents_gen += 1
+                if nb_sents is not None and nb_sents_gen == nb_sents:
+                    break
+                frame = ()
+                i = 1
+                continue
             frame += (new_word,)
-            if i < self.n:
+            if i < n:
                 i += 1
-            elif i == self.n:
+            elif i == n:
                 frame = frame[1:]
-            print(new_word, end=' ')
+            gen_tokens.append(new_word)
+        return gen_tokens
 
 if __name__ == '__main__':
-    ngramModel = NgramModel('../data/bible_fr.txt', 3)
-    ngramModel.generateText()
+    ngramModel = NgramModel('../data/bible_fr.txt')
+    text = ngramModel.generateText(3, nb_sents=5)
+    print(' '.join(text))
