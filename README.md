@@ -12,7 +12,7 @@ Here, `gram` means `word`, and grams are collected from a corpus of sentences.
 ## Under the hood
 
 - Text is tokenized into words
-- Conditional probability of each word is set, given the `n-1` previous words
+- Conditional probabilities are set for each word, given the `n-1` previous words
 - Generation is made iteratively given the previous words and their relative probabilities
 
 Let `n=3` and `i` the index of the `ith` word `w`, its conditional probability is:
