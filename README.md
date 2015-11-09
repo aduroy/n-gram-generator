@@ -15,6 +15,7 @@ Here, `gram` means `word`, and grams are collected from a corpus of sentences.
 - Conditional probabilities are set for each word, given the `n-1` previous words
 - Generation is made iteratively given the previous words and their relative probabilities
 
+e.g.:
 Let `n=3` and `i` the index of the `ith` word `w`, its conditional probability is:
 ![n-gram representation](https://github.com/aduroy/NGramGenerator/blob/master/data/ngram_prob.png)
 
