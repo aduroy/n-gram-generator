@@ -13,8 +13,7 @@ Here, `gram` means `word`, and grams are collected from a corpus of sentences.
 
 - Text is tokenized into words
 - Conditional probability of each word is set, given the `n-1` previous words
-- Markov model is trained using sequences of `n` words
-- Iteration is made in order to generate words given the previous ones and their relative probabilities
+- Generation is made iteratively given the previous words and their relative probabilities
 
 Let `n=3` and `i` the index of the `ith` word `w`, its conditional probability is:
 ![n-gram representation](https://github.com/aduroy/NGramGenerator/blob/master/data/ngram_prob.png)
