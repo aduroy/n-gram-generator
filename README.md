@@ -1,4 +1,4 @@
-# n-gram text generator
+# n-gram Text Generator
 n-gram models are widely used in computational linguistics, such as text generation. In this field, an n-gram model
 is a probabilistic model for predicting words given the previous ones, using Markov chains.
 Here, `gram` means `word`, and grams are collected from a corpus of sentences.
