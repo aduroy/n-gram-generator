@@ -48,3 +48,25 @@ And get:
         Ne crains point, car cet homme nous a dit : Vous me troublez, en me conservant la vie ; mais je ne puis
         rien faire jusqu'à ce que tu l'envoies ? C'est le champ qu'Abraham a acheté d'éphron, le Héthien, comme
         propriété sépulcrale, et qui me répondra : Bois, et je parlerai. Cham, père de Sichem, et sortirent.
+
+And, same for `english`
+
+        ngram_model = NgramModel('../data/bible_en.txt', lang='english')
+        text1 = ngramModel.gen_text(2, nb_sents=3)
+        text2 = ngramModel.gen_text(4, nb_sents=3)
+
+It produces
+
+        == 2-gram ===
+        And Herod, and the dead because of the flesh, who love of the day, and said, high mountain, "If God,
+        "Truly, who bewailed and one Simon of the city Jerusalem, and on the chief priests and release him,
+        and understand all liars, but they rested according to the saints according to the law might be his God,
+        but by a great multitude of God is dry? Then Jesus from the imperfect; and on the chief priests and the
+        sufferings of the flesh can not receive the redemption of God. To set the first fruits of God, but we do
+        not arrogant or nakedness, I am a child; but the commandment.
+        == 4-gram ===
+        Who shall separate us from the love of Christ? So then, brethren, we are debtors, not to the flesh, to
+        live according to the will of him who subjected it in hope; because the creation itself will be set free
+        from its bondage to decay and obtain the glorious liberty of the children of God, his Chosen One!" And he
+        answered him, "You have said so."
+
