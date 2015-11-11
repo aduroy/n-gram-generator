@@ -80,21 +80,25 @@ The process of realizing text consists in rendering concepts or expressions into
 ### Examples of differences between French and English
 
 Semicolon
+
         French
         (...) word ; word (...)
         English
         (...) word; word (...)
 Colon
+
         French
         (...) word : word (...)
         English
         (...) word: word (...)
 Exclamation mark
+
         French
         (...) word !
         English
         (...) word!
 Question mark
+
         French
         (...) word ?
         English
