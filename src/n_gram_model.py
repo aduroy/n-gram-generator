@@ -27,7 +27,8 @@ class NgramModel:
             return f.read().replace('\n', ' ')
     
     def _select_nextword(self, ngram, cfdist=None):
-        """
+        """ Select a word from a range of possibilities, given a frame of
+        (n-1) words previously generated.
         """
         xk = np.arange(cfdist[ngram].B())
         pk = []
@@ -40,7 +41,7 @@ class NgramModel:
         return candidates[custm.rvs()]
     
     def gen_text(self, n, nb_sents=None, nb_words=None):
-        """
+        """ Enable text generation.
         """
         if n < 1:
             raise ValueError("n must be higher or equal than 1.")
@@ -78,6 +79,6 @@ class NgramModel:
         return realizer.realize(gen_tokens)
 
 if __name__ == '__main__':
-    ngramModel = NgramModel('../data/bible_fr.txt', lang='french')
+    ngramModel = NgramModel('../data/bible_en.txt', lang='english')
     text = ngramModel.gen_text(4, nb_sents=3)
     print(text)

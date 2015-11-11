@@ -65,7 +65,7 @@ class Realizer():
         self.lang = lang
     
     def realize(self, words=[]):
-        """
+        """ Transform a list of tokens into a correct and readable text.
         """
         realized_words = []
         punctuations = self.punctuations[self.lang].keys()
