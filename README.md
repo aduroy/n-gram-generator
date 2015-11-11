@@ -70,3 +70,33 @@ It produces
         from its bondage to decay and obtain the glorious liberty of the children of God, his Chosen One!" And he
         answered him, "You have said so."
 
+## Realization
+
+The process of realizing text consists in rendering concepts or expressions into a syntactically well-formed sequence of characters. That being said, languages does not necessarily share common rules, that's why the `lang` parameter is important, for 2 reasons:
+
+- Split the dataset into sentences and words
+- Organize produced words
+
+### Examples of differences between French and English
+
+Semicolon
+        French
+        (...) word ; word (...)
+        English
+        (...) word; word (...)
+Colon
+        French
+        (...) word : word (...)
+        English
+        (...) word: word (...)
+Exclamation mark
+        French
+        (...) word !
+        English
+        (...) word!
+Question mark
+        French
+        (...) word ?
+        English
+        (...) word?
+And so forth...
