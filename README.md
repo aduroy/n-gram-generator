@@ -23,21 +23,22 @@ Given `n=3`, let `i` denote the index of the `ith` word `w`, its conditional pro
 ## Code samples
 
 First, create an `NgramModel` instance by specifying the `path/to/your/dataset` and the language of your text, as follows:
-
+```python
         ngram_model = NgramModel('../data/bible_fr.txt', lang='french')
+```
 
 Then, set the frame size (`n`) and generate as many sentences as you wish:
-
+```python
         text1 = ngramModel.gen_text(2, nb_sents=3)
         text2 = ngramModel.gen_text(4, nb_sents=3)
-
+```
 Print them in console:
-
+```python
         print('== 2-gram ===')
         print(text1)
         print('== 4-gram ===')
         print(text2)
-
+```
 And get:
 
         == 2-gram ===
@@ -50,11 +51,11 @@ And get:
         propriété sépulcrale, et qui me répondra : Bois, et je parlerai. Cham, père de Sichem, et sortirent.
 
 And, same for `english`
-
+```python
         ngram_model = NgramModel('../data/bible_en.txt', lang='english')
         text1 = ngramModel.gen_text(2, nb_sents=3)
         text2 = ngramModel.gen_text(4, nb_sents=3)
-
+```
 It produces
 
         == 2-gram ===
