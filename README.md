@@ -29,8 +29,8 @@ ngram_model = NgramModel('../data/bible_fr.txt', lang='french')
 
 Then, set the frame size (`n`) and generate as many sentences as you wish:
 ```python
-text1 = ngramModel.gen_text(2, nb_sents=3)
-text2 = ngramModel.gen_text(4, nb_sents=3)
+text1 = ngram_model.gen_text(2, nb_sents=3)
+text2 = ngram_model.gen_text(4, nb_sents=3)
 ```
 Print them in console:
 ```python
